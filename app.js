@@ -24,18 +24,22 @@ app.listen(port, function() {
 
 app.post("/response", function(req, res) {
     var t = req.body;
-
     mongoClient.connect("mongodb://localhost:27017/query", function(err,db){
-cursor =db.collection('response').find({"name1":t.text},{"name2":1, "_id":0});
-       cursor.each(function(err, doc) {
-          if (doc != null) {
-            console.log(doc);
-          res.send(doc);
-            }
         
-       });
+        var cursor =db.collection('response').find({"name1":t.text},{"name2":1, "_id":0});
+               
+        cursor.each(function(err, doc) {
+        
+                    if (doc != null) {
+                        console.log(doc.name2);
+                        // res.send("dummy data");  //res.send() isnt working inside cursor.each function()         
+                        res.send(doc.name2);        // send value fetched from database to index.js(isnt working)        
+       
+                         }
+        
+        });
 
-    })
-
+        
+    });
 
 });
