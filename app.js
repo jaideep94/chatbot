@@ -28,18 +28,14 @@ app.post("/response", function(req, res) {
         
         var cursor =db.collection('response').find({"name1":t.text},{"name2":1, "_id":0});
                
+        var docs = [];
         cursor.each(function(err, doc) {
-        
-                    if (doc != null) {
-                        console.log(doc.name2);
-                        // res.send("dummy data");  //res.send() isnt working inside cursor.each function()         
-                        res.send(doc.name2);        // send value fetched from database to index.js(isnt working)        
-       
-                         }
-        
+            if (doc != null) {
+                console.log(doc.name2);
+                docs.push(doc.name2);
+            }
         });
-
         
+        res.status(200).send(docs);
     });
-
 });
