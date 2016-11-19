@@ -35,7 +35,8 @@ app.post("/response", function(req, res) {
                 docs.push(doc.name2);
             }
         });
-        
+        console.log(docs);
         res.status(200).send(docs);
+        
     });
 });
